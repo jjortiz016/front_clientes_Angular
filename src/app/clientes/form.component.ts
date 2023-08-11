@@ -1,5 +1,7 @@
 import { Component , OnInit} from '@angular/core';
 import { Cliente } from './cliente';
+import { ClienteService } from './cliente.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-form',
@@ -11,14 +13,15 @@ export class FormComponent implements OnInit {
   cliente: Cliente = new Cliente()
   titulo:string = "Crear Cliente"
 
-  constructor(){}
+  constructor(private clienteService: ClienteService, private router:Router){}   //inyectamos la dependencia
 
   ngOnInit(): void {
       
   }
   public create():void{
-     console.log("clicked en el formulario")
-     console.log(this.cliente)
+     this.clienteService.create(this.cliente).subscribe(
+      response => this.router.navigate(['/clientes'])
+     )
   }
 }
 
