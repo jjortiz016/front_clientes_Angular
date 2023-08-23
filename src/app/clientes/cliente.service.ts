@@ -22,8 +22,8 @@ export class ClienteService {
       
   }
 
-  create(cliente: Cliente): Observable<Cliente>{
-      return this.http.post<Cliente>(this.urlEndPoint,cliente, {headers: this.httpHeaders}).pipe(
+  create(cliente: Cliente): Observable<any>{
+      return this.http.post<any>(this.urlEndPoint,cliente, {headers: this.httpHeaders}).pipe(
           catchError(e => {
             console.error(e.error.mensaje);
            // Swal.fire('Error al crear', e.error.mensaje , 'error' );
@@ -35,16 +35,16 @@ export class ClienteService {
   }
 
   getCliente(id): Observable<Cliente>{
-     return this.http.get<Cliente>(`${this.urlEndPoint}/${id}`).pipe(
-        catchError(e => {
-          this.router.navigate(['/clientes']); //para que enrute o redirija al listado de cliente
-          console.error(e.error.mensaje);
-          Swal.fire('Error al editar', e.error.mensaje , 'error' );
-          //return throwError(e);  //marca deprecated
-           return throwError(() => new Error(e))  //retornamos el el objeto del error e tipo observable
-        })
-     );
-  }
+    return this.http.get<Cliente>(`${this.urlEndPoint}/${id}`).pipe(
+       catchError(e => {
+         this.router.navigate(['/clientes']); //para que enrute o redirija al listado de cliente
+         console.error(e.error.mensaje);
+         Swal.fire('Error al editar', e.error.mensaje , 'error' );
+         //return throwError(e);  //marca deprecated
+          return throwError(() => new Error(e))  //retornamos el el objeto del error e tipo observable
+       })
+    );
+ }
 
 
   update(cliente: Cliente):Observable<Cliente>{
@@ -68,6 +68,6 @@ export class ClienteService {
         return throwError(() => new Error(e))
 
       })
-  );
+    );
   }
 }
