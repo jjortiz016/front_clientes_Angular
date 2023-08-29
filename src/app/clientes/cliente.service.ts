@@ -25,7 +25,13 @@ export class ClienteService {
   create(cliente: Cliente): Observable<any>{
       return this.http.post<any>(this.urlEndPoint,cliente, {headers: this.httpHeaders}).pipe(
           catchError(e => {
-            console.error(e.error.mensaje);
+            if(e.status==400){
+              //return throwError(e);
+              //console.error('Error 400 en el service',e.status);
+              return throwError(()=> new Error(e));
+            }
+
+          //  console.error(e.error.mensaje);
            // Swal.fire('Error al crear', e.error.mensaje , 'error' );
             Swal.fire(e.error.mensaje, e.error.error, 'error' );
             return throwError(() => new Error(e))
@@ -51,13 +57,18 @@ export class ClienteService {
      return this.http.put(`${this.urlEndPoint}/${cliente.id}`, cliente, {headers:this.httpHeaders}).pipe(
       map((response:any) => response.cliente as Cliente),
       catchError(e => {
-        console.error(e.error.mensaje);
+        if(e.status==400){
+          console.error('Error 400 en el service',e.error.errors);
+         // return throwError(e);
+          return throwError(() => e);
+        }
+      //  console.error(e.error.mensaje);
         //Swal.fire('Error guardar el registro.', e.error.mensaje , 'error' );
         Swal.fire(e.error.mensaje, e.error.error, 'error' );
         return throwError(() => new Error(e))
 
       })
-  );
+     );
   }
 
   delete(id:number): Observable<Cliente>{
