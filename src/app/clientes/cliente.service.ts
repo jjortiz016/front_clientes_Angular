@@ -27,10 +27,8 @@ export class ClienteService {
           catchError(e => {
             if(e.status==400){
               //return throwError(e);
-              //console.error('Error 400 en el service',e.status);
-              return throwError(()=> new Error(e));
+              return throwError(()=> e);
             }
-
           //  console.error(e.error.mensaje);
            // Swal.fire('Error al crear', e.error.mensaje , 'error' );
             Swal.fire(e.error.mensaje, e.error.error, 'error' );
@@ -47,7 +45,7 @@ export class ClienteService {
          console.error(e.error.mensaje);
          Swal.fire('Error al editar', e.error.mensaje , 'error' );
          //return throwError(e);  //marca deprecated
-          return throwError(() => new Error(e))  //retornamos el el objeto del error e tipo observable
+          return throwError(() => e)  //retornamos el el objeto del error e tipo observable
        })
     );
  }
@@ -58,14 +56,12 @@ export class ClienteService {
       map((response:any) => response.cliente as Cliente),
       catchError(e => {
         if(e.status==400){
-          console.error('Error 400 en el service',e.error.errors);
-         // return throwError(e);
           return throwError(() => e);
         }
       //  console.error(e.error.mensaje);
         //Swal.fire('Error guardar el registro.', e.error.mensaje , 'error' );
         Swal.fire(e.error.mensaje, e.error.error, 'error' );
-        return throwError(() => new Error(e))
+        return throwError(() => e)
 
       })
      );
