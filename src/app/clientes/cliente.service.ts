@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Cliente } from './cliente';
 import { HttpClient, HttpHeaders } from '@angular/common/http'; 
-import {map, catchError} from 'rxjs/operators'; //segunda forma
+import {map, catchError, tap} from 'rxjs/operators'; //segunda forma
 import { of, Observable, throwError} from 'rxjs';
 import  Swal from 'sweetalert2';
 import { Router } from '@angular/router';
@@ -12,7 +12,7 @@ export class ClienteService {
   private httpHeaders = new HttpHeaders({'Content-Type': 'application/json'});
 
   constructor(private http: HttpClient, private router: Router) { }
-
+/*
   getClientes(): Observable<Cliente[]> {
  // return of(CLIENTES);
      //return this.http.get<Cliente[]>(this.urlEndPoint); //esta es una forma
@@ -20,7 +20,45 @@ export class ClienteService {
         map( (response) => response as Cliente[])
       )  //segunda forma
       
-  }
+  }*/
+  /* getClientes(): Observable<any>{
+    return this.http.get(this.urlEndPoint).pipe(
+      tap((response: any) =>{
+        console.log('ClienteService: tap1');
+        (response.content as Cliente[]).forEach(cliente => {
+          console.log(cliente.nombre);
+        });
+      }),
+      map( (response) => response as Cliente[])
+
+
+
+    )
+
+   }*/
+   getClientes(): Observable<Cliente[]> {
+    // return of(CLIENTES);
+        //return this.http.get<Cliente[]>(this.urlEndPoint); //esta es una forma
+        return this.http.get(this.urlEndPoint).pipe(
+          tap(response => {
+            let clientes= response as Cliente[];
+            clientes.forEach(cliente => {
+              console.log(cliente.nombre);
+            })
+
+
+          }),
+
+           map( (response) => {
+            let clientes = response as Cliente[];
+            return clientes.map(cliente => {
+               cliente.nombre = cliente.nombre.toUpperCase();
+               return cliente;
+            });
+           })
+         )  //segunda forma
+         
+     }
 
   create(cliente: Cliente): Observable<any>{
       return this.http.post<any>(this.urlEndPoint,cliente, {headers: this.httpHeaders}).pipe(
