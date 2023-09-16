@@ -14,7 +14,7 @@ export class ClientesComponent implements OnInit {
 
     constructor(private clienteService: ClienteService) {}
 
-    ngOnInit(){
+    /*ngOnInit(){
     //  this.clientes= this.clienteService.getClientes();
       this.clienteService.getClientes().pipe(
         tap(clientes => {
@@ -30,7 +30,26 @@ export class ClientesComponent implements OnInit {
 
       );
 
-    }
+    }*/
+
+    ngOnInit(){
+      let page=0;
+      //  this.clientes= this.clienteService.getClientes();
+        this.clienteService.getClientes(page).pipe(
+          tap(response => {
+            console.log('clientes.component tap3');
+          
+           (response.content as Cliente[]).forEach(cliente => {
+              console.log(cliente.nombre);
+            });
+          })
+  
+          ).subscribe(
+          response=> this.clientes= response.content as Cliente[]
+  
+        );
+  
+      }
 
     delete (cliente: Cliente): void {
       Swal.fire({

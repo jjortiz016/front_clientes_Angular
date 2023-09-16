@@ -22,41 +22,35 @@ export class ClienteService {
       
   }*/
  
-   getClientes(): Observable<Cliente[]> {
+   getClientes(page: number): Observable<any> {
     // return of(CLIENTES);
         //return this.http.get<Cliente[]>(this.urlEndPoint); //esta es una forma
-        return this.http.get(this.urlEndPoint).pipe(
-          tap(response => {
-            console.log('tap1');
-            let clientes= response as Cliente[];
-            clientes.forEach(cliente => {
+        return this.http.get(this.urlEndPoint+'/page/'+page).pipe(
+          tap( (response: any) => {
+            console.log('cliente.service tap1');
+            (response.content as Cliente[]).forEach(cliente => {
               console.log(cliente.nombre);
-            })
-
-
+            });
           }),
 
-           map( (response) => {
-            let clientes = response as Cliente[];
-            return clientes.map(cliente => {
+           map( (response:any) => {
+          
+            (response.content as Cliente[]).map(cliente => {
                cliente.nombre = cliente.nombre.toUpperCase();
                return cliente;
             });
+            return response;
            }
            ),
+
            tap(response => {
-            console.log('tap2');
+            console.log('cliente.service tap2');
             let clientes= response as Cliente[];
-            clientes.forEach(cliente => {
+            (response.content as Cliente[]).forEach(cliente => {
               console.log(cliente.nombre);
-            })
-
-
-          }),
-
-
+            });
+          })
          );
-         
      }
 
   create(cliente: Cliente): Observable<any>{
