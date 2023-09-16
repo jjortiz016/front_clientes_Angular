@@ -45,7 +45,7 @@ export class ClienteService {
 
            tap(response => {
             console.log('cliente.service tap2');
-            let clientes= response as Cliente[];
+            //let clientes= response as Cliente[];
             (response.content as Cliente[]).forEach(cliente => {
               console.log(cliente.nombre);
             });
