@@ -43,7 +43,6 @@ export class ClientesComponent implements OnInit {
       if (!page) { // por si no biene nada en el parametro se asignar la pagina 0
         page = 0;
       }
-      
 
       this.clienteService.getClientes(page).pipe(
         tap(response => {
@@ -61,10 +60,6 @@ export class ClientesComponent implements OnInit {
 
 
   }
-
-
-
-       
 
     delete (cliente: Cliente): void {
       Swal.fire({
