@@ -3,6 +3,8 @@ import { Cliente } from './cliente';
 import { ClienteService } from './cliente.service';
 import  Swal from 'sweetalert2';
 import {tap} from 'rxjs/operators';
+import { ActivatedRoute } from '@angular/router';
+import { HttpParams } from '@angular/common/http';
 
 @Component({
   selector: 'app-clientes',
@@ -12,7 +14,8 @@ import {tap} from 'rxjs/operators';
 export class ClientesComponent implements OnInit {
   clientes: Cliente[] ;
 
-    constructor(private clienteService: ClienteService) {}
+    constructor(private clienteService: ClienteService,
+       private activatedRoute: ActivatedRoute ) {}
 
     /*ngOnInit(){
     //  this.clientes= this.clienteService.getClientes();
@@ -32,24 +35,36 @@ export class ClientesComponent implements OnInit {
 
     }*/
 
-    ngOnInit(){
-      let page=0;
-      //  this.clientes= this.clienteService.getClientes();
-        this.clienteService.getClientes(page).pipe(
-          tap(response => {
-            console.log('clientes.component tap3');
-          
-           (response.content as Cliente[]).forEach(cliente => {
-              console.log(cliente.nombre);
-            });
-          })
-  
-          ).subscribe(
-          response=> this.clientes= response.content as Cliente[]
-  
-        );
-  
+  ngOnInit() {
+
+    //  this.clientes= this.clienteService.getClientes();
+    this.activatedRoute.paramMap.subscribe(params => {
+      let page: number = +params.get('page');  //el operador + convierte el parametro en un entero
+      if (!page) { // por si no biene nada en el parametro se asignar la pagina 0
+        page = 0;
       }
+      
+
+      this.clienteService.getClientes(page).pipe(
+        tap(response => {
+          console.log('clientes.component tap3');
+
+          (response.content as Cliente[]).forEach(cliente => {
+            console.log(cliente.nombre);
+          });
+        })
+
+      ).subscribe(
+        response => this.clientes = response.content as Cliente[]);
+
+    });
+
+
+  }
+
+
+
+       
 
     delete (cliente: Cliente): void {
       Swal.fire({
