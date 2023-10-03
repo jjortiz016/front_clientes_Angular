@@ -61,6 +61,14 @@
                 </div>
             </div>
 
+            <div class="form-group row  mb-2">
+                <label for="nacimiento" class="col-form-label col-sm-2">Nacimiento</label>
+                <div class="col-sm-6">
+                    <input type="date" class="form-control" [(ngModel)]="cliente.nacimiento" name="nacimiento" #nacimiento="ngModel"> <!-- required minlength="4"-->
+                
+                </div>
+            </div>
+
 
          
             <div class="form-group row">
