@@ -15,6 +15,7 @@ import {HttpClientModule} from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { registerLocaleData } from '@angular/common';
 import { DetalleComponent } from './clientes/detalle/detalle.component';
+import { VehiculosComponent } from './vehiculos/vehiculos.component';
 
 
 //import '@angular/common/locales/global/es';
@@ -39,7 +40,8 @@ const routes: Routes = [
     ClientesComponent,
     FormComponent,
     PaginatorComponent,
-    DetalleComponent
+    DetalleComponent,
+    VehiculosComponent
   ],
   imports: [
     BrowserModule,
