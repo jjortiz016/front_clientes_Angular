@@ -14,8 +14,11 @@ export class VehiculosComponent implements OnInit {
     constructor(private vehiculoService: VehiculoService){}
  
       ngOnInit() {
-        this.vehiculos= this.vehiculoService.getVehiculos();
+      //  this.vehiculos= this.vehiculoService.getVehiculos();
         //this.vehiculos=VEHICULOS;
+        this.vehiculoService.getVehiculos().subscribe(
+          vehiculos => this.vehiculos=vehiculos //observador
+        );
       }
 
 }
