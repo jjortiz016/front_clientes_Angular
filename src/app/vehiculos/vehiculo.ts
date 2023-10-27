@@ -4,4 +4,5 @@ export class Vehiculo {
     marca: string;
     color: string;
     tipo: string;
+    createAt: string;
 }

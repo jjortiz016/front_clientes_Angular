@@ -1,10 +1,27 @@
-<div class="card">
-    <div class="card-header"> Vehiculos </div>
-    <div class="card-body">
-      <h5 class="card-title">Card title</h5>
-      <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-      <a href="#" class="card-link">Card link</a>
-      <a href="#" class="card-link">Another link</a>
+    <div class="card border-primary mb-3">
+        <div class="card-header"> Vehiculos </div>
+        <div class="card-body text-primary">
+            <h5 class="card-title">Listado de vehiculos</h5>
+            <table class="table table-border table-striped">
+                <thead>
+                    <tr>
+                        <th>id</th>
+                        <th>Placa</th>
+                        <th>Marca</th>
+                        <th>Color</th>
+                        <th>Tipo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let vehiculo of vehiculos">
+                        <td>{{vehiculo.id}}</td>
+                        <td>{{vehiculo.placa}}</td>
+                        <td>{{vehiculo.marca}}</td>
+                        <td>{{vehiculo.color}}</td>
+                        <td>{{vehiculo.tipo}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
-</div>
+
