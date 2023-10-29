@@ -17,6 +17,7 @@ import { registerLocaleData } from '@angular/common';
 import { DetalleComponent } from './clientes/detalle/detalle.component';
 import { VehiculosComponent } from './vehiculos/vehiculos.component';
 import { VehiculoService } from './vehiculos/vehiculo.service';
+import { FormVehiculoComponent } from './vehiculos/form-vehiculo.component';
 
 
 //import '@angular/common/locales/global/es';
@@ -30,7 +31,8 @@ const routes: Routes = [
      {path:'clientes/form', component: FormComponent},
      {path: 'clientes/form/:id', component: FormComponent},
      {path: 'clientes/ver/:id', component: DetalleComponent},
-     {path:'vehiculos', component: VehiculosComponent}
+     {path:'vehiculos', component: VehiculosComponent},
+     {path:'vehiculos/form-vehiculo', component: FormVehiculoComponent},
 ];
 
 @NgModule({
@@ -43,7 +45,8 @@ const routes: Routes = [
     FormComponent,
     PaginatorComponent,
     DetalleComponent,
-    VehiculosComponent
+    VehiculosComponent,
+    FormVehiculoComponent
   ],
   imports: [
     BrowserModule,

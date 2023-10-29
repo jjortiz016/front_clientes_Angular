@@ -3,11 +3,12 @@ import { VEHICULOS } from './vehiculos.json';
 import { Vehiculo } from './vehiculo';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders} from '@angular/common/http';
 
 @Injectable()
 export class VehiculoService {
   private urlEndPoint:string='http://localhost:8086/api2/vehiculos';
+  private httpHeaders = new HttpHeaders({'Content-type': 'application/json'});
 
   constructor(private http: HttpClient) { }
   /*getVehiculos(): Observable <Vehiculo[]> {
@@ -18,6 +19,11 @@ export class VehiculoService {
      return this.http.get(this.urlEndPoint).pipe(
       map((response) => response as Vehiculo[])
      )
+  }
+
+  create(vehiculo: Vehiculo): Observable <Vehiculo>{
+    return this.http.post<Vehiculo>(this.urlEndPoint, vehiculo, {headers: this.httpHeaders})
+    
   }
 
 
