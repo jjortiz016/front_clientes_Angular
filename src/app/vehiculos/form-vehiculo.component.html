@@ -1,5 +1,41 @@
 <div class="card bg-dark text-white">
     <div class="card-header">{{tituloVehiculo}}</div>
+        <div class="card-body">
+            <form #automovilForm="ngForm">
+                <div class="form-group  row mb-2">
+                    <label for="placa" class="col-form-label col-sm-2">Placa</label>
+                       <div class="col-sm-4"> 
+                            <input type="text" class="form-control"  [(ngModel)]="vehiculo.placa"  name="placa" #placa="ngModel">
+                       </div>
+                </div>
 
+                <div class="form-group  row mb-2">
+                    <label for="marca" class="col-form-label col-sm-2">Marca</label>
+                       <div class="col-sm-8"> 
+                            <input type="text" class="form-control"  [(ngModel)]="vehiculo.marca"  name="marca" #marca="ngModel">
+                       </div>
+                </div>
 
+                <div class="form-group  row mb-2">
+                    <label for="color" class="col-form-label col-sm-2">Color</label>
+                       <div class="col-sm-8"> 
+                            <input type="text" class="form-control"  [(ngModel)]="vehiculo.color"  name="color" #color="ngModel">
+                       </div>
+                </div>
+
+                <div class="form-group  row mb-2">
+                    <label for="color" class="col-form-label col-sm-2">Tipo</label>
+                       <div class="col-sm-8"> 
+                        <select class="form-select form-select-sm" aria-label=".form-select-sm example" [(ngModel)]="vehiculo.tipo" name="tipo" #tipo="ngModel">
+                            <option selected>Seleccione un opción</option>
+                            <option value="Automovil">Automovil</option>
+                            <option value="Moto">Moto</option>
+                            <option value="Camion">Camion</option>
+                            <option value="Bus">Bus</option>
+                          </select>
+                            
+                       </div>
+                </div>
+            </form>
+    </div>
 </div>
