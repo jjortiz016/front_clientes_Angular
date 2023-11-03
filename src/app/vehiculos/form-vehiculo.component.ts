@@ -39,4 +39,15 @@ export class FormVehiculoComponent implements OnInit {
     }
     )
   }
+
+  update(): void{
+    this.vehiculoService.update(this.vehiculo)
+    .subscribe(vehiculo=>{
+        this.router.navigate(['/vehiculos'])
+        Swal.fire('Actualizar vehiculo', `Vehiculo ${vehiculo.placa} actualizado con exito!`, 'success')
+
+    })
+  }
+
+
 }

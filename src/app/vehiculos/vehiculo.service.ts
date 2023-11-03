@@ -30,4 +30,8 @@ export class VehiculoService {
       return this.http.get<Vehiculo>(`${this.urlEndPoint}/${id}`)
    }
 
+   update(vehiculo:Vehiculo):Observable<Vehiculo>{
+     return this.http.put<Vehiculo>(`${this.urlEndPoint}/${vehiculo.id}`, vehiculo, {headers: this.httpHeaders})
+   }
+
 }
