@@ -33,6 +33,7 @@ const routes: Routes = [
      {path: 'clientes/ver/:id', component: DetalleComponent},
      {path:'vehiculos', component: VehiculosComponent},
      {path:'vehiculos/form-vehiculo', component: FormVehiculoComponent},
+     {path:'vehiculos/form-vehiculo/:id', component: FormVehiculoComponent}
 ];
 
 @NgModule({

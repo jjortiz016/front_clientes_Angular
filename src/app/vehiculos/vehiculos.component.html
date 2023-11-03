@@ -13,6 +13,8 @@
                         <th>Marca</th>
                         <th>Color</th>
                         <th>Tipo</th>
+                        <th>Fecha</th>
+                        <th>Editar</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -22,6 +24,10 @@
                         <td>{{vehiculo.marca}}</td>
                         <td>{{vehiculo.color}}</td>
                         <td>{{vehiculo.tipo}}</td>
+                        <td>{{vehiculo.createAt}}</td>
+                        <td>
+                            <button type="button" name="editar" class="btn btn-primary btn-sm" [routerLink] = "['/vehiculos/form-vehiculo', vehiculo.id]">Editar</button>
+                        </td>
                     </tr>
                 </tbody>
             </table>

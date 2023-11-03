@@ -26,5 +26,8 @@ export class VehiculoService {
     
   }
 
+   getVehiculo(id): Observable<Vehiculo>{
+      return this.http.get<Vehiculo>(`${this.urlEndPoint}/${id}`)
+   }
 
 }
