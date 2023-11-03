@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Vehiculo } from './vehiculo';
 import { VehiculoService } from './vehiculo.service';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-form-vehiculo',
@@ -19,9 +20,11 @@ export class FormVehiculoComponent implements OnInit {
   }
 
   public create():void{
-    this.vehiculoService.create(this.vehiculo).subscribe(
-      response => this.router.navigate(['/vehiculos']) //retorna al listado de clientes
+    this.vehiculoService.create(this.vehiculo)
+    .subscribe(vehiculo=>{
+        this.router.navigate(['/vehiculos']) //retorna al listado de clientes
+        Swal.fire('Nuevo cliente', `Vehiculo ${vehiculo.placa} creado con exito!`, 'success')
+    }
     )
   }
-
 }
