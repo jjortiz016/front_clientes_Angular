@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { VEHICULOS } from './vehiculos.json';
 import { Vehiculo } from './vehiculo';
-import { Observable, of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, of, throwError } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 import { HttpClient, HttpHeaders} from '@angular/common/http';
+import Swal from 'sweetalert2';
 
 @Injectable()
 export class VehiculoService {
@@ -32,6 +33,20 @@ export class VehiculoService {
 
    update(vehiculo:Vehiculo):Observable<Vehiculo>{
      return this.http.put<Vehiculo>(`${this.urlEndPoint}/${vehiculo.id}`, vehiculo, {headers: this.httpHeaders})
+   }
+
+   delete(id:number): Observable<Vehiculo>{
+      return this.http.delete<Vehiculo>(`${this.urlEndPoint}/${id}`, {headers: this.httpHeaders}).pipe(
+        catchError(e => {
+          console.error(e.error.mensaje);
+          Swal.fire(e.error.mensaje, e.error.error, 'error');
+         
+          return throwError(() => new Error(e))
+
+        })
+
+      );
+
    }
 
 }

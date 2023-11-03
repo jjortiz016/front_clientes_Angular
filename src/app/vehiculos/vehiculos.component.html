@@ -15,6 +15,7 @@
                         <th>Tipo</th>
                         <th>Fecha</th>
                         <th>Editar</th>
+                        <th>Eliminar</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -27,6 +28,9 @@
                         <td>{{vehiculo.createAt}}</td>
                         <td>
                             <button type="button" name="editar" class="btn btn-primary btn-sm" [routerLink] = "['/vehiculos/form-vehiculo', vehiculo.id]">Editar</button>
+                        </td>
+                        <td>
+                            <button type="button" name="editar" class="btn btn-danger btn-sm" (click)='delete(vehiculo)'>Eliminar</button>
                         </td>
                     </tr>
                 </tbody>
