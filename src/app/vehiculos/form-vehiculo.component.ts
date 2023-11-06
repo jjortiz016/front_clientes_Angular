@@ -12,6 +12,7 @@ import Swal from 'sweetalert2';
 export class FormVehiculoComponent implements OnInit {
   vehiculo: Vehiculo = new Vehiculo();
   tituloVehiculo:string = 'Crear Vehiculo';
+  errores:string[];
   
 
   constructor(private vehiculoService: VehiculoService, private router: Router, private activateRoute: ActivatedRoute){}
@@ -33,18 +34,29 @@ export class FormVehiculoComponent implements OnInit {
 
   public create():void{
     this.vehiculoService.create(this.vehiculo)
-    .subscribe(json=>{
-        this.router.navigate(['/vehiculos']) //retorna al listado de clientes
-        Swal.fire('Nuevo vehiculo', `${json.mensaje}: ${json.vehiculo.placa} `, 'success')
-    }
-    )
+    .subscribe({
+      next: json=>{
+          this.router.navigate(['/vehiculos']) //retorna al listado de clientes
+          Swal.fire('Nuevo vehiculo', `${json.mensaje}: ${json.vehiculo.placa} `, 'success')
+        },
+
+      error: (err) =>{
+        this.errores = err.error.errores as string[];
+      }
+
+    } );
   }
 
   update(): void{
     this.vehiculoService.update(this.vehiculo)
-    .subscribe(vehiculo=>{
+    .subscribe({
+      next : vehiculo=>{
         this.router.navigate(['/vehiculos'])
         Swal.fire('Actualizar vehiculo', `Vehiculo ${vehiculo.placa} actualizado con exito!`, 'success')
+      },
+      error: (err) =>{
+        this.errores = err.error.errores as string[];
+      }
 
     })
   }

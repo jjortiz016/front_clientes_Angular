@@ -1,3 +1,10 @@
+<ul class="alert alert-danger" *ngIf="errors?.length > 0">
+    <li class="d-flex align-items-star" *ngFor="let err of errores">
+        {{err}}
+    </li>
+</ul>
+
+
 <div class="card bg-dark text-white">
     <div class="card-header">{{tituloVehiculo}}</div>
         <div class="card-body">

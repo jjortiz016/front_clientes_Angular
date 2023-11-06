@@ -26,7 +26,11 @@ export class VehiculoService {
   create(vehiculo: Vehiculo): Observable <any>{
     return this.http.post<any>(this.urlEndPoint, vehiculo, {headers: this.httpHeaders}).pipe(
       catchError(e=> {
-        console.error(e.error.mensaje);
+        if(e.status==400){
+          return throwError(()=> e);
+        }
+
+        //console.error(e.error.mensaje);
         Swal.fire(e.error.mensaje, e.error.error, 'error');
         return throwError(() => new Error(e));
 
@@ -52,7 +56,10 @@ export class VehiculoService {
      return this.http.put(`${this.urlEndPoint}/${vehiculo.id}`, vehiculo, {headers: this.httpHeaders}).pipe(
        map((response:any) => response.vehiculo as Vehiculo),
         catchError(e => {
-              console.error(e.error.mensaje)
+          if(e.status==400){
+            return throwError(()=> e);
+          }
+            //  console.error(e.error.mensaje)
             // Swal.fire('Error al actualizar el vehiculo', e.error.mensaje, 'error');
             Swal.fire(e.error.mensaje, e.error.error, 'error');
               return throwError(()=> new Error(e)) //retornamos el objeto del error.
