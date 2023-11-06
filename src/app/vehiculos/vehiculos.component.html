@@ -5,7 +5,11 @@
                 <button type="button" class="btn btn-primary" [routerLink]="['/vehiculos/form-vehiculo']">Crear vehiculo</button>
             </div>
             <h5 class="card-title">Listado de vehiculos</h5>
-            <table class="table table-border table-striped">
+            <div *ngIf="vehiculos?.length == 0" class="alert alert-info">
+                No hay registros en la base de datos.
+
+            </div> 
+            <table class="table table-border table-striped" *ngIf="vehiculos?.length>0">
                 <thead>
                     <tr>
                         <th>id</th>
