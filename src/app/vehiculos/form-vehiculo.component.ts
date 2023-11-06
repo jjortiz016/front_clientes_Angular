@@ -33,9 +33,9 @@ export class FormVehiculoComponent implements OnInit {
 
   public create():void{
     this.vehiculoService.create(this.vehiculo)
-    .subscribe(vehiculo=>{
+    .subscribe(json=>{
         this.router.navigate(['/vehiculos']) //retorna al listado de clientes
-        Swal.fire('Nuevo cliente', `Vehiculo ${vehiculo.placa} creado con exito!`, 'success')
+        Swal.fire('Nuevo vehiculo', `${json.mensaje}: ${json.vehiculo.placa} `, 'success')
     }
     )
   }
