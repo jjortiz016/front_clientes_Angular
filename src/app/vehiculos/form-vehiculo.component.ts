@@ -36,12 +36,14 @@ export class FormVehiculoComponent implements OnInit {
     this.vehiculoService.create(this.vehiculo)
     .subscribe({
       next: json=>{
-          this.router.navigate(['/vehiculos']) //retorna al listado de clientes
+          this.router.navigate(['/vehiculos']) //retorna al listado de vehiculos
           Swal.fire('Nuevo vehiculo', `${json.mensaje}: ${json.vehiculo.placa} `, 'success')
         },
 
       error: (err) =>{
-        this.errores = err.error.errores as string[];
+        this.errores= err.error.errors as string[];
+       /* console.error(' Código del error del backend: '+ err.status);
+        console.error(err.error.errors);*/
       }
 
     } );
@@ -55,7 +57,7 @@ export class FormVehiculoComponent implements OnInit {
         Swal.fire('Actualizar vehiculo', `Vehiculo ${vehiculo.placa} actualizado con exito!`, 'success')
       },
       error: (err) =>{
-        this.errores = err.error.errores as string[];
+        this.errores = err.error.errors as string[];
       }
 
     })
