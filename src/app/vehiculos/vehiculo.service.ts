@@ -19,7 +19,15 @@ export class VehiculoService {
 
   getVehiculos(): Observable<Vehiculo[]>{
      return this.http.get(this.urlEndPoint).pipe(
-      map((response) => response as Vehiculo[])
+      map((response) => {
+        //modificando para el codigo para cambiar el contenido del flujo, en este caso pasaremos a mayuscula la placa como ejemplo
+        let vehiculos= response as Vehiculo[];
+
+        return vehiculos.map(vehiculo=>{
+          vehiculo.placa = vehiculo.placa.toUpperCase();
+          return vehiculo;
+        });
+      })
      )
   }
 
