@@ -17,7 +17,7 @@ export class VehiculoService {
     return of (VEHICULOS); // of convierte el objeto VEHICULOS en un observable
   }*/
 
-  getVehiculos(): Observable<Vehiculo[]>{
+ /* getVehiculos(): Observable<Vehiculo[]>{
      return this.http.get(this.urlEndPoint).pipe(
       map((response) => {
         //modificando para el codigo para cambiar el contenido del flujo, en este caso pasaremos a mayuscula la placa como ejemplo
@@ -29,7 +29,20 @@ export class VehiculoService {
         });
       })
      )
-  }
+  }*/
+
+  //creando el metodo getVhiculos con paginación
+  getVehiculos(page: number): Observable<any>{
+    return this.http.get(this.urlEndPoint+'/page/'+page).pipe(
+     map((response: any) => {
+        (response.content as Vehiculo[]).map(vehiculo =>{
+           vehiculo.placa = vehiculo.placa.toUpperCase();
+           return vehiculo;
+        });
+        return response;
+     })
+    )
+   }
 
   create(vehiculo: Vehiculo): Observable <any>{
     return this.http.post<any>(this.urlEndPoint, vehiculo, {headers: this.httpHeaders}).pipe(

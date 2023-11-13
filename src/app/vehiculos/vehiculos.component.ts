@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Vehiculo } from './vehiculo';
 import { VehiculoService } from './vehiculo.service';
+import { ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
 @Component({
   selector: 'app-vehiculos',
@@ -11,14 +12,27 @@ export class VehiculosComponent implements OnInit {
  
    vehiculos: Vehiculo[];
 
-    constructor(private vehiculoService: VehiculoService){}
+    constructor(private vehiculoService: VehiculoService,
+      private activatedRoute: ActivatedRoute){}
  
-      ngOnInit() {
+    /*  ngOnInit() {
+       
       //  this.vehiculos= this.vehiculoService.getVehiculos();
         //this.vehiculos=VEHICULOS;
         this.vehiculoService.getVehiculos().subscribe(
           vehiculos => this.vehiculos=vehiculos //observador
         );
+      }*/
+      ngOnInit() {
+       this.activatedRoute.paramMap.subscribe(paramas => {
+        let page: number = +paramas.get('page');
+        if(!page){
+          page = 0;
+        }
+        this.vehiculoService.getVehiculos(page).pipe().subscribe(
+          response=> this.vehiculos=response.content as Vehiculo[] //observador
+        );
+       })
       }
 
       delete (vehiculo: Vehiculo): void {
