@@ -18,6 +18,7 @@ import { DetalleComponent } from './clientes/detalle/detalle.component';
 import { VehiculosComponent } from './vehiculos/vehiculos.component';
 import { VehiculoService } from './vehiculos/vehiculo.service';
 import { FormVehiculoComponent } from './vehiculos/form-vehiculo.component';
+import { PaginatorvehiculoComponent } from './paginatorvehiculo/paginatorvehiculo.component';
 
 
 //import '@angular/common/locales/global/es';
@@ -48,7 +49,8 @@ const routes: Routes = [
     PaginatorComponent,
     DetalleComponent,
     VehiculosComponent,
-    FormVehiculoComponent
+    FormVehiculoComponent,
+    PaginatorvehiculoComponent
   ],
   imports: [
     BrowserModule,

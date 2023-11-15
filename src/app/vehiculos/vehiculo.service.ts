@@ -33,7 +33,7 @@ export class VehiculoService {
 
   //creando el metodo getVhiculos con paginación
   getVehiculos(page: number): Observable<any>{
-    return this.http.get(this.urlEndPoint+'/page/'+page).pipe(
+    return this.http.get(this.urlEndPoint+'/page/'+ page).pipe(
      map((response: any) => {
         (response.content as Vehiculo[]).map(vehiculo =>{
            vehiculo.placa = vehiculo.placa.toUpperCase();

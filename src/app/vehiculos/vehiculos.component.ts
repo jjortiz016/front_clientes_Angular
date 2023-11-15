@@ -3,14 +3,16 @@ import { Vehiculo } from './vehiculo';
 import { VehiculoService } from './vehiculo.service';
 import { ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
+import {tap} from 'rxjs/operators';
 @Component({
   selector: 'app-vehiculos',
   templateUrl: './vehiculos.component.html'
   
 })
 export class VehiculosComponent implements OnInit {
- 
+   
    vehiculos: Vehiculo[];
+   paginadorvehiculo: any;
 
     constructor(private vehiculoService: VehiculoService,
       private activatedRoute: ActivatedRoute){}
@@ -24,13 +26,30 @@ export class VehiculosComponent implements OnInit {
         );
       }*/
       ngOnInit() {
-       this.activatedRoute.paramMap.subscribe(paramas => {
-        let page: number = +paramas.get('page');
+
+       this.activatedRoute.paramMap.subscribe(params => {
+        let page: number = +params.get('page');
         if(!page){
           page = 0;
         }
-        this.vehiculoService.getVehiculos(page).pipe().subscribe(
-          response=> this.vehiculos=response.content as Vehiculo[] //observador
+        this.vehiculoService.getVehiculos(page).pipe(
+          tap(response => {
+          //  console.log('clientes.component tap20');
+  
+            (response.content as Vehiculo[]).forEach(vehiculo => {
+            //  console.log(vehiculo.placa);
+            });
+          })
+  
+        )
+        
+        .subscribe(
+          response => {
+            this.vehiculos= response.content as Vehiculo[];//observador
+            this.paginadorvehiculo = response;
+           // console.log("paginadorvehiculo.totalPages:", this.paginadorvehiculo.totalPages);
+          }
+          
         );
        })
       }

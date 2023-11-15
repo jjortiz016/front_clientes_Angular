@@ -24,6 +24,7 @@ export class PaginatorComponent implements OnInit, OnChanges { // clase hija
     
   }
    private initPaginator():void{
+    //console.log("paginador.totalPages en clientes:", this.paginador.totalPages);
       this.desde=Math.min(Math.max(1,this.paginador.number-4), this.paginador.totalPages-5);
       this.hasta=Math.max(Math.min(this.paginador.totalPages, this.paginador.number+4));
 
