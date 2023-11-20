@@ -1,0 +1,86 @@
+<ul class="alert alert-danger" *ngIf="errores?.length > 0">
+    <li class="d-flex align-items-star" *ngFor="let err of errores">
+        {{err}}
+    </li>
+
+</ul>
+
+
+<div class="card bg-dark text-white">
+    <div class="card-header">{{tituloVehiculo}}</div>
+        <div class="card-body">
+            <form #automovilForm="ngForm">
+                <div class="form-group  row mb-2">
+                    <label for="placa" class="col-form-label col-sm-2">Placa</label>
+                       <div class="col-sm-4"> 
+                            <input type="text" class="form-control"  [(ngModel)]="vehiculo.placa"  name="placa"   #placa="ngModel"  required minlength="4" maxlength="6"> <!--required minlength="4" maxlength="6" -->
+                            <div class="alert alert-danger" role="alert" *ngIf="placa.invalid && (placa.dirty || placa.touched)">
+                                <div *ngIf="placa.errors.required">
+                                    La placa es requerida.
+                                </div>
+                                <div *ngIf="placa.errors.minlength">
+                                    La placa debe tener al menos 4 caracteres
+                                </div>
+                                <div *ngIf="placa.errors.maxlength">
+                                    La placa debe tener hasta 6 caracteres
+                                </div>
+                            </div>
+                       </div>
+                </div>
+
+                <div class="form-group  row mb-2">
+                    <label for="marca" class="col-form-label col-sm-2">Marca</label>
+                       <div class="col-sm-8"> 
+                            <input type="text" class="form-control"  [(ngModel)]="vehiculo.marca"  name="marca" #marca="ngModel" maxlength="40">  <!--maxlength="40"-->
+                            <div class="alert alert-danger" role="alert" *ngIf="marca.invalid && (marca.dirty || marca.touched)">
+                                <div *ngIf="marca.errors.maxlength">
+                                    La marca debe tener maximo 40 caracteres
+                                </div>
+                            </div>
+                       </div>
+                </div>
+
+                <div class="form-group  row mb-2">
+                    <label for="color" class="col-form-label col-sm-2">Color</label>
+                       <div class="col-sm-8"> 
+                            <input type="text" class="form-control"  [(ngModel)]="vehiculo.color"  name="color" #color="ngModel" maxlength="40"> <!--maxlength="40"-->
+                            <div class="alert alert-danger" role="alert" *ngIf="color.invalid && (marca.dirty || color.touched)">
+                                <div *ngIf="color.errors.maxlength">
+                                    El color debe tener maximo 40 caracteres
+                                </div>
+                            </div>
+                       </div>
+                </div>
+
+                <div class="form-group  row mb-2">
+                    <label for="color" class="col-form-label col-sm-2">Tipo</label>
+                       <div class="col-sm-8"> 
+                        <select class="form-select form-select-sm" aria-label=".form-select-sm example" [(ngModel)]="vehiculo.tipo" name="tipo"  #tipo="ngModel" required> <!--required-->
+                            
+                            <option value="" selected>Seleccione opción</option>
+                            <option value="Automovil"> Automovil</option>
+                            <option value="Moto">Moto</option>
+                            <option value="Camion">Camion</option>
+                            <option value="Bus">Bus</option>
+                          </select>
+                          <div class="alert alert-danger" role="alert" *ngIf="tipo.invalid && (tipo.dirty || tipo.touched)">
+                            <div *ngIf="tipo.errors.required">
+                                El tipo  es requerido.
+                            </div>                          
+                         </div>
+                            
+                       </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-6">
+                        <button class="btn btn-primary" (click)='create()' role="button" *ngIf="!vehiculo.id else elseBlock" [disabled]="!automovilForm.form.valid" >Crear</button>
+                        <ng-template #elseBlock>
+                            <button class="btn btn-primary" (click)='update()' role="button" [disabled]="!automovilForm.form.valid">Actualizar</button>  
+
+                        </ng-template>
+                        
+                    </div>
+                </div>
+            </form>
+    </div>
+</div>

@@ -1,0 +1,28 @@
+<ul  class ="pagination" *ngIf="paginas?.length >0" >
+<!-- pagina anterior -->
+  <li class="page-item" *ngIf="paginadorvehiculo.number >0">
+    <a class="page-link"  [routerLink]="['/vehiculos/page/', paginadorvehiculo.number-1]">&laquo;</a>
+  </li>
+<!-- primera pagina -->
+<li [ngClass]="paginadorvehiculo == 0?'disabled page-item':'page-item'">
+  <a class="page-link"  [routerLink]="[ '/vehiculos/page/', 0]">Primera</a>
+</li>
+
+
+<!-- pagina actual -->
+  <li class="page-item" *ngFor="let pagina of paginas" [ngClass]="pagina-1 == paginadorvehiculo.number?'active':''">
+    <span class="page-link" *ngIf="pagina-1 == paginadorvehiculo.number"> {{pagina}}</span>
+      <a  *ngIf="pagina-1 != paginadorvehiculo.number" class="page-link" [routerLink]="['/vehiculos/page/', pagina-1]"> {{pagina}}</a>
+     </li> 
+
+ <!-- ultima pagina -->
+ <li [ngClass]="paginadorvehiculo.number==paginadorvehiculo.totalPages-1?'disabled page-item':'page-item'">
+  <a class="page-link"  [routerLink]="[ '/vehiculos/page/', paginadorvehiculo.totalPages-1]">Ultima</a>
+ </li>
+    
+<!-- Siguiente pagina -->
+    <li class="page-item" *ngIf="paginadorvehiculo.number < paginadorvehiculo.totalPages-1">
+      <a class="page-link"  [routerLink]="['/vehiculos/page/', paginadorvehiculo.number+1]">&raquo;</a>
+    </li>
+
+</ul>

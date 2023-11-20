@@ -1,0 +1,49 @@
+<div class="card border-primary mt-3">
+    <div class="card-header"> Vehiculos </div>
+        
+    <div class="card-body text-primary">
+        <div class="my-2 text-left">
+            <button type="button" class="btn btn-primary" [routerLink] = "['/vehiculos/form-vehiculo']">Crear vehiculo</button>
+        </div>
+        <h5 class="card-title">Listado de vehiculos</h5>
+        <div *ngIf="vehiculos?.length == 0" class="alert alert-info" role="alert">
+            No hay registros en la base de datos.
+
+        </div> 
+
+        <table class="table table-border table-striped" *ngIf="vehiculos?.length>0"  >
+            <thead>
+                <tr>
+                    <th>id</th>
+                    <th>Placa</th>
+                    <th>Marca</th>
+                    <th>Color</th>
+                    <th>Tipo</th>
+                    <th>Fecha</th>
+                    <th>Editar</th>
+                    <th>Eliminar</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let vehiculo of vehiculos">
+                    <td>{{vehiculo.id}}</td>
+                    <td>{{vehiculo.placa}}</td>
+                    <td>{{vehiculo.marca}}</td>
+                    <td>{{vehiculo.color}}</td>
+                    <td>{{vehiculo.tipo}}</td>
+                    <td>{{vehiculo.createAt}}</td>
+                    <td>
+                        <button type="button" name="editar" class="btn btn-primary btn-sm" [routerLink] = "['/vehiculos/form-vehiculo', vehiculo.id]">Editar</button>
+                    </td>
+                    <td>
+                        <button type="button" name="editar" class="btn btn-danger btn-sm" (click)='delete(vehiculo)'>Eliminar</button>
+                    </td>
+                </tr>
+
+            </tbody>
+         </table>
+    
+        <paginatorvehiculo-nav *ngIf="paginadorvehiculo" [paginadorvehiculo] = "paginadorvehiculo"></paginatorvehiculo-nav>
+    </div>
+       
+ </div>
