@@ -14,6 +14,11 @@ import {HttpClientModule} from '@angular/common/http';
 
 import { FormsModule } from '@angular/forms';
 import { registerLocaleData } from '@angular/common';
+import { DetalleComponent } from './clientes/detalle/detalle.component';
+import { VehiculosComponent } from './vehiculos/vehiculos.component';
+import { VehiculoService } from './vehiculos/vehiculo.service';
+import { FormVehiculoComponent } from './vehiculos/form-vehiculo.component';
+import { PaginatorvehiculoComponent } from './paginatorvehiculo/paginatorvehiculo.component';
 
 
 //import '@angular/common/locales/global/es';
@@ -25,7 +30,12 @@ const routes: Routes = [
      {path:'clientes', component: ClientesComponent},
      {path:'clientes/page/:page', component: ClientesComponent},
      {path:'clientes/form', component: FormComponent},
-     {path: 'clientes/form/:id', component: FormComponent}
+     {path: 'clientes/form/:id', component: FormComponent},
+     {path: 'clientes/ver/:id', component: DetalleComponent},
+     {path:'vehiculos', component: VehiculosComponent},
+     {path: 'vehiculos/page/:page', component: VehiculosComponent},
+     {path:'vehiculos/form-vehiculo', component: FormVehiculoComponent},
+     {path:'vehiculos/form-vehiculo/:id', component: FormVehiculoComponent}
 ];
 
 @NgModule({
@@ -36,7 +46,11 @@ const routes: Routes = [
     DirectivaComponent,
     ClientesComponent,
     FormComponent,
-    PaginatorComponent
+    PaginatorComponent,
+    DetalleComponent,
+    VehiculosComponent,
+    FormVehiculoComponent,
+    PaginatorvehiculoComponent
   ],
   imports: [
     BrowserModule,
@@ -45,7 +59,7 @@ const routes: Routes = [
     RouterModule.forRoot(routes)
 
   ],
-  providers: [ClienteService, {provide: LOCALE_ID, useValue: 'es' }],
+  providers: [ClienteService, VehiculoService,  {provide: LOCALE_ID, useValue: 'es' }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
