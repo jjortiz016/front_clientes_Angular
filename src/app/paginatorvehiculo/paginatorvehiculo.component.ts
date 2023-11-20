@@ -19,23 +19,28 @@ export class PaginatorvehiculoComponent implements OnInit, OnChanges { //, OnCha
   constructor(){}
   
   ngOnInit(): void {
- 
+    this.initPaginator();
       
   }
 
   ngOnChanges(changes: SimpleChanges): void {
+    let paginadorActualizado = changes['paginadorvehiculo']; //parametro que bien inyectado desde el html (@input)
+    if(paginadorActualizado.previousValue){
+      this.initPaginator();
+    }
+   
+  }
+
+  private initPaginator(): void{
     this.desde= Math.min(Math.max(1, this.paginadorvehiculo.number-4), this.paginadorvehiculo.totalPages-5);
-    this.hasta= Math.max(Math.min(this.paginadorvehiculo.totalPages, this.paginadorvehiculo.number+4),6); 
+    this.hasta= Math.max(Math.min(this.paginadorvehiculo.totalPages, this.paginadorvehiculo.number+4), 6); 
 
     if(this.paginadorvehiculo.totalPages>5){
-      this.paginas= new Array(this.hasta - this.desde+1).fill(0).map((_valor, indice)=> indice + this.desde);
+      this.paginas= new Array(this.hasta - this.desde +  1).fill(0).map((_valor, indice)=> indice + this.desde);
 
     }else{
       this.paginas = new Array(this.paginadorvehiculo.totalPages).fill(0).map((valor, indice)=> indice+1);     
     }
-    
-    
-     
 
   }
 }
