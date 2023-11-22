@@ -14,6 +14,7 @@ import { HttpParams } from '@angular/common/http';
 export class ClientesComponent implements OnInit {
   clientes: Cliente[] ;
   paginador: any;
+  clienteSeleccionado: Cliente;
 
     constructor(private clienteService: ClienteService,
        private activatedRoute: ActivatedRoute ) {}
@@ -87,5 +88,9 @@ export class ClientesComponent implements OnInit {
           )
         }
       })
+    }
+
+    abrirModalCliente(cliente: Cliente): void{
+      this.clienteSeleccionado= cliente;
     }
 }
