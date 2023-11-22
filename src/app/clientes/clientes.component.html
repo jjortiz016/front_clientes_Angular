@@ -5,6 +5,7 @@
       <div class="my-2 text-left">
          <button type="button" class="btn btn-primary" [routerLink] = "['/clientes/form']" >Crear cliente</button>
       </div>
+    
      
       <h5 class="card-title">Listado de clientes</h5>
       <div class="alert alert-info" role="alert" *ngIf="clientes?.length == 0">
@@ -28,7 +29,7 @@
                </thead>
                <tbody>
                   <tr *ngFor="let cliente of clientes">
-                  <td><button type="button"  class="btn btn-success btn-sm" (click)="abrirModalCliente(cliente)">{{cliente.id}}</button></td>
+                  <td><button type="button"  class="btn btn-success btn-sm" (click)="abrirModalCliente(cliente) " data-bs-toggle="modal" data-bs-target="#modalCliente" >{{cliente.id}}</button></td>
                   <td>{{cliente.nombre}}</td>
                   <td>{{cliente.apellido | uppercase}}</td>
                   <td>{{cliente.email}}</td>
@@ -51,4 +52,6 @@
     </div>
   </div>
 
-  <detalle-cliente *ngIf="clienteSeleccionado" [cliente]="clienteSeleccionado"></detalle-cliente>
+  <!--  <detalle-cliente *ngIf="clienteSeleccionado" [cliente]="clienteSeleccionado"></detalle-cliente>  -->
+   <detalle-cliente  [cliente]="clienteSeleccionado" ></detalle-cliente> 
+  

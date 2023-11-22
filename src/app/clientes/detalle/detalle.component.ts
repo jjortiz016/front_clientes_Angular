@@ -67,4 +67,10 @@ export class DetalleComponent {
       })
     }
   }
+
+  cerrarModal(){
+    this.fotoSeleccionada=null;
+    this.progreso=0;
+
+  }
 }
