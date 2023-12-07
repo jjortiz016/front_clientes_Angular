@@ -5,6 +5,7 @@
       <div class="my-2 text-left">
          <button type="button" class="btn btn-primary" [routerLink] = "['/clientes/form']" >Crear cliente</button>
       </div>
+    
      
       <h5 class="card-title">Listado de clientes</h5>
       <div class="alert alert-info" role="alert" *ngIf="clientes?.length == 0">
@@ -28,7 +29,14 @@
                </thead>
                <tbody>
                   <tr *ngFor="let cliente of clientes">
-                  <td><button type="button"  class="btn btn-success btn-sm" [routerLink] = "['/clientes/ver', cliente.id]">{{cliente.id}}</button></td>
+                  <td>
+                     <img  (click)="abrirModalCliente(cliente)" data-bs-toggle="modal" data-bs-target="#modalCliente"  *ngIf="cliente?.foto"
+                      src="http://localhost:8086/api/uploads/img/{{cliente.foto}}" alt="foto cliente" class="img-thumbnail rounded" style="width: 64px; cursor: pointer;">
+
+                      <img  (click)="abrirModalCliente(cliente)" data-bs-toggle="modal" data-bs-target="#modalCliente"  *ngIf="!cliente?.foto"
+                      src="http://localhost:8086/images/no-user.png" alt="Sin foto" class="img-thumbnail rounded" style="width: 64px; cursor: pointer;">
+                   
+                  </td>
                   <td>{{cliente.nombre}}</td>
                   <td>{{cliente.apellido | uppercase}}</td>
                   <td>{{cliente.email}}</td>
@@ -50,3 +58,7 @@
                
     </div>
   </div>
+
+  <!--  <detalle-cliente *ngIf="clienteSeleccionado" [cliente]="clienteSeleccionado"></detalle-cliente>  -->
+   <detalle-cliente  [cliente]="clienteSeleccionado" ></detalle-cliente> 
+  

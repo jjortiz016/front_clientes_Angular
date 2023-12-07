@@ -26,7 +26,7 @@
             </thead>
             <tbody>
                 <tr *ngFor="let vehiculo of vehiculos">
-                    <td>{{vehiculo.id}}</td>
+                    <td><button type="button" class="btn btn-success btn-sm"  [routerLink]="[ '/vehiculos/ver', vehiculo.id ]">{{vehiculo.id}}</button></td>
                     <td>{{vehiculo.placa}}</td>
                     <td>{{vehiculo.marca}}</td>
                     <td>{{vehiculo.color}}</td>

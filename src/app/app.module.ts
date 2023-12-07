@@ -19,6 +19,7 @@ import { VehiculosComponent } from './vehiculos/vehiculos.component';
 import { VehiculoService } from './vehiculos/vehiculo.service';
 import { FormVehiculoComponent } from './vehiculos/form-vehiculo.component';
 import { PaginatorvehiculoComponent } from './paginatorvehiculo/paginatorvehiculo.component';
+import { DetallevehiculoComponent } from './vehiculos/detallevehiculo/detallevehiculo.component';
 
 
 //import '@angular/common/locales/global/es';
@@ -31,11 +32,12 @@ const routes: Routes = [
      {path:'clientes/page/:page', component: ClientesComponent},
      {path:'clientes/form', component: FormComponent},
      {path: 'clientes/form/:id', component: FormComponent},
-     {path: 'clientes/ver/:id', component: DetalleComponent},
+    /*  {path: 'clientes/ver/:id', component: DetalleComponent}, */
      {path:'vehiculos', component: VehiculosComponent},
      {path: 'vehiculos/page/:page', component: VehiculosComponent},
      {path:'vehiculos/form-vehiculo', component: FormVehiculoComponent},
-     {path:'vehiculos/form-vehiculo/:id', component: FormVehiculoComponent}
+     {path:'vehiculos/form-vehiculo/:id', component: FormVehiculoComponent},
+     {path: 'vehiculos/ver/:id', component: DetallevehiculoComponent}
 ];
 
 @NgModule({
@@ -50,7 +52,8 @@ const routes: Routes = [
     DetalleComponent,
     VehiculosComponent,
     FormVehiculoComponent,
-    PaginatorvehiculoComponent
+    PaginatorvehiculoComponent,
+    DetallevehiculoComponent
   ],
   imports: [
     BrowserModule,
