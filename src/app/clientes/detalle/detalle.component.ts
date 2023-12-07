@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Cliente } from '../cliente';
 import { ClienteService } from '../cliente.service';
 import { ActivatedRoute } from '@angular/router';
 import  Swal from 'sweetalert2';
 import { HttpEventType } from '@angular/common/http';
+import { ModalService } from './modal.service';
 
 @Component({
   selector: 'detalle-cliente',
@@ -12,23 +13,15 @@ import { HttpEventType } from '@angular/common/http';
 })
 export class DetalleComponent {
 
-  cliente: Cliente;
+  @Input() cliente: Cliente;
   titulo: string = "Detalle del cliente";
   public fotoSeleccionada: File;
   progreso: number=0;
 
 
-  constructor(private clienteService: ClienteService, private activatedRoute: ActivatedRoute){}
+  constructor(private clienteService: ClienteService, private activatedRoute: ActivatedRoute, private modalService: ModalService){}
   ngOnInit() {
-    
-    this.activatedRoute.paramMap.subscribe(params => {
-      let id:number = +params.get('id');
-      if (id) {
-        this.clienteService.getCliente(id).subscribe(cliente =>{
-           this.cliente = cliente;
-        });
-      }
-    })
+   
   }
 
   seleccionarFoto(event){
@@ -46,6 +39,7 @@ export class DetalleComponent {
       this.fotoSeleccionada=null; // se coloca en null para que la siguiente validación impida que se envie.
 
      }
+    
 
   }
   subirFoto(){
@@ -66,13 +60,21 @@ export class DetalleComponent {
           }else if (event.type=== HttpEventType.Response){
             let response: any = event.body;
             this.cliente = response.cliente as Cliente;
+            this.modalService.notificarUpload.emit(this.cliente);
             Swal.fire(
               'Guardada!',
                response.mensaje,
               'success'
             )
+            this.fotoSeleccionada=null;
           }
       })
     }
+  }
+
+  cerrarModal(){
+    this.fotoSeleccionada=null;
+    this.progreso=0;
+
   }
 }
