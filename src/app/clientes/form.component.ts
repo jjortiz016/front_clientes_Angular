@@ -1,5 +1,6 @@
 import { Component , OnInit} from '@angular/core';
 import { Cliente } from './cliente';
+import { Region } from './region';
 import { ClienteService } from './cliente.service';
 import { Router, ActivatedRoute} from '@angular/router';
 import  Swal from 'sweetalert2';
@@ -11,7 +12,8 @@ import  Swal from 'sweetalert2';
 export class FormComponent implements OnInit {
   
   cliente: Cliente = new Cliente()
-  titulo:string = "Crear Cliente"
+  regiones: Region[]
+  titulo:string = "Cliente"
   errores: string[];
 
   constructor(private clienteService: ClienteService, 
@@ -20,6 +22,7 @@ export class FormComponent implements OnInit {
 
   ngOnInit(): void {
     this.cargarCliente()
+    this.cargarRegiones()
 
   }
  cargarCliente(): void{
@@ -30,6 +33,12 @@ export class FormComponent implements OnInit {
       }
 
    })
+ }
+
+ cargarRegiones(): void{
+  this.clienteService.getRegiones().subscribe(regiones => 
+    this.regiones = regiones );
+
  }
 
 
@@ -97,6 +106,14 @@ export class FormComponent implements OnInit {
          
    )
   }*/
+    compararRegion(objetoNgFor: Region, ObjetoAsigCliente: Region ): boolean {
+        if(objetoNgFor === undefined && ObjetoAsigCliente === undefined){
+          return true; //si los dos objetos son undefined queda selaccionado 'seleccionar region'
+        }
+
+      return objetoNgFor === null || ObjetoAsigCliente === null || objetoNgFor === undefined || ObjetoAsigCliente === undefined? false: objetoNgFor.id===ObjetoAsigCliente.id;
+    }
+
 }
 
 
