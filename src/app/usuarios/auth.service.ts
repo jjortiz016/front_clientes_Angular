@@ -68,4 +68,12 @@ export class AuthService {
     }
     return null;
   }
+
+  isAuthenticated(): boolean{
+    let payload = this.obtenerDatosToken(this.token); //this.token es el metodo get no el atributo.
+    if(payload!=null && payload.user_name && payload.user_name.length>0){
+      return true;
+    }
+    return false;
+  }
 }
