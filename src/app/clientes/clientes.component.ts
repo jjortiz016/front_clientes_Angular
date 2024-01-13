@@ -3,7 +3,7 @@ import { Cliente } from './cliente';
 import { ClienteService } from './cliente.service';
 import  Swal from 'sweetalert2';
 import {tap} from 'rxjs/operators';
-import { ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { HttpParams } from '@angular/common/http';
 import { ModalService } from './detalle/modal.service';
 
@@ -18,7 +18,8 @@ export class ClientesComponent implements OnInit {
   clienteSeleccionado: Cliente;
 
     constructor(private clienteService: ClienteService,
-       private activatedRoute: ActivatedRoute, private modalService: ModalService ) {}
+       private activatedRoute: ActivatedRoute, private modalService: ModalService,
+       private router:Router ) {}
 
     /*ngOnInit(){
     //  this.clientes= this.clienteService.getClientes();
@@ -89,7 +90,8 @@ export class ClientesComponent implements OnInit {
           this.clienteService.delete(cliente.id).subscribe(  
             response => {
              this.clientes= this.clientes.filter(cli => cli !==cliente) //para que filtre el cliente en la lista de la tabla.
-              Swal.fire(
+             //this.router.navigate(['/clientes'])// se debe validar si la pagina donde elimino ya no existe para que no vuelva al inicio del listado sin necesidad
+             Swal.fire(
                 'Eliminado!',
                 `El cliente ${cliente.nombre} ha sido eliminado.`,
                 'success'
