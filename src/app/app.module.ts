@@ -13,7 +13,7 @@ import { RouterModule, Routes } from '@angular/router';
 import {HttpClientModule} from '@angular/common/http';
 
 import { FormsModule } from '@angular/forms';
-import { registerLocaleData } from '@angular/common';
+import { HashLocationStrategy, LocationStrategy, registerLocaleData} from '@angular/common';
 import { DetalleComponent } from './clientes/detalle/detalle.component';
 import { VehiculosComponent } from './vehiculos/vehiculos.component';
 import { VehiculoService } from './vehiculos/vehiculo.service';
@@ -21,6 +21,8 @@ import { FormVehiculoComponent } from './vehiculos/form-vehiculo.component';
 import { PaginatorvehiculoComponent } from './paginatorvehiculo/paginatorvehiculo.component';
 import { DetallevehiculoComponent } from './vehiculos/detallevehiculo/detallevehiculo.component';
 import { LoginComponent } from './usuarios/login.component';
+
+
 
 
 //import '@angular/common/locales/global/es';
@@ -65,7 +67,11 @@ const routes: Routes = [
     RouterModule.forRoot(routes)
 
   ],
-  providers: [ClienteService, VehiculoService,  {provide: LOCALE_ID, useValue: 'es' }],
+ 
+ providers: [ClienteService, VehiculoService, 
+   {provide: LOCALE_ID, useValue: 'es' },
+   {provide: LocationStrategy, useClass: HashLocationStrategy}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
