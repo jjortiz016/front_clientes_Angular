@@ -27,11 +27,16 @@ private agregarAuthorizationHeader(){
 
 
   private isNotAuthorized(e):boolean{
-    if(e.status==401 || e.status==403){
+    if(e.status==401){
       this.router.navigate(['/login']) //redirige al login
       return true;
     }
     
+     if(e.status==403){
+      Swal.fire('Acceso denegado', `Hola ${this.authService.usuario.username}` , 'warning' );
+      this.router.navigate(['/clientes']) //redirige al login
+      return true;
+    }
     return false;
   }
 
