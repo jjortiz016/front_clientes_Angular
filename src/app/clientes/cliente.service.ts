@@ -38,8 +38,8 @@ private agregarAuthorizationHeader(){
     }
     
      if(e.status==403){
-      Swal.fire('Acceso denegado', `Hola ${this.authService.usuario.username}` , 'warning' );
-      this.router.navigate(['/clientes']) //redirige al login
+      Swal.fire('Acceso denegado', `Hola ${this.authService.usuario.username} no tienes acceso` , 'warning' );
+      this.router.navigate(['/clientes']) 
       return true;
     }
     return false;
@@ -180,7 +180,7 @@ getRegiones(): Observable<Region[]>{
      let httpHeaders = new HttpHeaders();
      let token = this.authService.token;
      if (token != null){
-      httpHeaders= httpHeaders.append('Authorization','Bearer' + token);
+      httpHeaders= httpHeaders.append('Authorization','Bearer' + token); //httpHeader.append crea una nueva instalancia por eso se asigna
      }
 
     const req = new HttpRequest('POST', `${this.urlEndPoint}/upload`, formData, {

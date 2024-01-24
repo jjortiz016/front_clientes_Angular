@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
         return;
       }
       this.authservice.login(this.usuario).subscribe(response => {
-          console.log(response);
+          console.log("TOKEN DE ACCESO FECHA DE ESPIRACION Y OTROS",response);
           //split convierte string en un arreglo y cada elemento corresponde a una seccion del
           //token que esta separado por un punto
           //atob convierte en json string  lo que esta encriptado en base 64

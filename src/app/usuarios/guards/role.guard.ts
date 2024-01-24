@@ -17,7 +17,7 @@ export const roleGuard: CanActivateFn = (next: ActivatedRouteSnapshot,
     }
 
     let role = next.data['role'] as string;
-    console.log(role);
+   // console.log(role);
     if(authService.hasRole(role)){ // sie existe el role
       return true;
     }
