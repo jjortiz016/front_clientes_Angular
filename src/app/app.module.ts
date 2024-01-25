@@ -38,7 +38,8 @@ const routes: Routes = [
      {path:'clientes/page/:page', component: ClientesComponent},
      {path:'clientes/form', component: FormComponent, canActivate:[authGuard, roleGuard], data:{role:'ROLE_ADMIN'}},
      {path: 'clientes/form/:id', component: FormComponent, canActivate:[authGuard, roleGuard], data:{role:'ROLE_ADMIN'}},
-    /*  {path: 'clientes/ver/:id', component: DetalleComponent}, */
+    //{path:'clientes/form', component: FormComponent},
+  //  {path: 'clientes/form/:id', component: FormComponent},
      {path:'vehiculos', component: VehiculosComponent},
      {path: 'vehiculos/page/:page', component: VehiculosComponent},
      {path:'vehiculos/form-vehiculo', component: FormVehiculoComponent},

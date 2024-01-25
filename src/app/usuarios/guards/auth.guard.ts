@@ -8,6 +8,11 @@ export const authGuard: CanActivateFn = (route: ActivatedRouteSnapshot,
           const authService = inject(AuthService);
           const router = inject(Router);
           if (authService.isAuthenticated()){
+              if(isTokenExpired(authService)){
+                authService.logout();
+                router.navigate(['/login']);
+                return false;
+              }
             return true;
           }
           console.log("AUTH.GUARD RETORNANDO AL LOGIN")
@@ -16,3 +21,14 @@ export const authGuard: CanActivateFn = (route: ActivatedRouteSnapshot,
           return false;
 
 };
+
+export function isTokenExpired(authService: AuthService): boolean {
+      let token= authService.token;
+      let payload =authService.obtenerDatosToken(token);
+      let now = new Date().getTime()/1000  // como se obtiene la fecha en milisegundos de divide entre 1000 para que quede en segundos
+    
+      if(payload.exp < now){ // si el valor del payload es meno que la fecha actual retornamos true, el token expiro
+        return true;
+      }
+    return false;  
+}
