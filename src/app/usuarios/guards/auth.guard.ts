@@ -3,16 +3,19 @@ import { ActivatedRouteSnapshot, CanActivateFn, Router, RouterStateSnapshot } fr
 import { AuthService } from '../auth.service';
 import { Observable } from 'rxjs';
 
-export const authGuard: CanActivateFn = (route: ActivatedRouteSnapshot,
+export const authGuard: CanActivateFn = (
+    route: ActivatedRouteSnapshot,
    state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean => {
           const authService = inject(AuthService);
           const router = inject(Router);
           if (authService.isAuthenticated()){
-              if(isTokenExpired(authService)){
+            console.log("se valido como usuario autenticado en authGuard")
+              /*if(isTokenExpired(authService)){
+                console.log("se valido como token expirado en authGuard")
                 authService.logout();
                 router.navigate(['/login']);
                 return false;
-              }
+              }*/
             return true;
           }
           console.log("AUTH.GUARD RETORNANDO AL LOGIN")

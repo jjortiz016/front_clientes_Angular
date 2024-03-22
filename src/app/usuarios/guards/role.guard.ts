@@ -4,17 +4,18 @@ import { Observable } from 'rxjs';
 import { AuthService } from '../auth.service';
 import  Swal from 'sweetalert2';
 
-export const roleGuard: CanActivateFn = (next: ActivatedRouteSnapshot,
+export const roleGuard: CanActivateFn = (
+   next: ActivatedRouteSnapshot,
   state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean  => {
 
     const authService = inject(AuthService);
     const router = inject(Router);
-
+/*
     if (!authService.isAuthenticated()) {
       router.navigate(['/login']);
       console.log("ROLE.GUARD NO ESTA AUTENTICADO")
       return false;      
-    }
+    }*/
 
     let role = next.data['role'] as string;
    // console.log(role);
