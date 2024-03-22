@@ -13,13 +13,19 @@ import { RouterModule, Routes } from '@angular/router';
 import {HttpClientModule} from '@angular/common/http';
 
 import { FormsModule } from '@angular/forms';
-import { registerLocaleData } from '@angular/common';
+//import { HashLocationStrategy, LocationStrategy, registerLocaleData} from '@angular/common';
+import {registerLocaleData} from '@angular/common';
 import { DetalleComponent } from './clientes/detalle/detalle.component';
 import { VehiculosComponent } from './vehiculos/vehiculos.component';
 import { VehiculoService } from './vehiculos/vehiculo.service';
 import { FormVehiculoComponent } from './vehiculos/form-vehiculo.component';
 import { PaginatorvehiculoComponent } from './paginatorvehiculo/paginatorvehiculo.component';
 import { DetallevehiculoComponent } from './vehiculos/detallevehiculo/detallevehiculo.component';
+import { LoginComponent } from './usuarios/login.component';
+import { authGuard } from './usuarios/guards/auth.guard';
+import { roleGuard } from './usuarios/guards/role.guard';
+
+
 
 
 //import '@angular/common/locales/global/es';
@@ -30,14 +36,16 @@ const routes: Routes = [
      {path:'directivas', component: DirectivaComponent},
      {path:'clientes', component: ClientesComponent},
      {path:'clientes/page/:page', component: ClientesComponent},
-     {path:'clientes/form', component: FormComponent},
-     {path: 'clientes/form/:id', component: FormComponent},
-    /*  {path: 'clientes/ver/:id', component: DetalleComponent}, */
+     {path:'clientes/form', component: FormComponent, canActivate:[authGuard, roleGuard], data:{role:'ROLE_ADMIN'}},
+     {path: 'clientes/form/:id', component: FormComponent, canActivate:[authGuard, roleGuard], data:{role:'ROLE_ADMIN'}},
+    //{path:'clientes/form', component: FormComponent},
+  //  {path: 'clientes/form/:id', component: FormComponent},
      {path:'vehiculos', component: VehiculosComponent},
      {path: 'vehiculos/page/:page', component: VehiculosComponent},
      {path:'vehiculos/form-vehiculo', component: FormVehiculoComponent},
      {path:'vehiculos/form-vehiculo/:id', component: FormVehiculoComponent},
-     {path: 'vehiculos/ver/:id', component: DetallevehiculoComponent}
+     {path: 'vehiculos/ver/:id', component: DetallevehiculoComponent},
+     {path: 'login', component: LoginComponent},
 ];
 
 @NgModule({
@@ -53,7 +61,8 @@ const routes: Routes = [
     VehiculosComponent,
     FormVehiculoComponent,
     PaginatorvehiculoComponent,
-    DetallevehiculoComponent
+    DetallevehiculoComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -62,7 +71,11 @@ const routes: Routes = [
     RouterModule.forRoot(routes)
 
   ],
-  providers: [ClienteService, VehiculoService,  {provide: LOCALE_ID, useValue: 'es' }],
+ 
+ providers: [ClienteService, VehiculoService, 
+   {provide: LOCALE_ID, useValue: 'es' }
+   //{provide: LocationStrategy, useClass: HashLocationStrategy}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
