@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 
 @Injectable()
 export class VehiculoService {
-  private urlEndPoint:string='http://localhost:8086/api2/vehiculos';
+  private urlEndPoint:string='http://localhost:8086/api/vehiculos';
   private httpHeaders = new HttpHeaders({'Content-type': 'application/json'});
 
   constructor(private http: HttpClient, private router: Router) { }
