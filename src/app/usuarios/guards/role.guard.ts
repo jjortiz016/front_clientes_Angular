@@ -10,12 +10,12 @@ export const roleGuard: CanActivateFn = (
 
     const authService = inject(AuthService);
     const router = inject(Router);
-/*
+
     if (!authService.isAuthenticated()) {
       router.navigate(['/login']);
       console.log("ROLE.GUARD NO ESTA AUTENTICADO")
       return false;      
-    }*/
+    }
 
     let role = next.data['role'] as string;
    // console.log(role);

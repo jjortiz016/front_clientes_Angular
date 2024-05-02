@@ -10,12 +10,12 @@ export const authGuard: CanActivateFn = (
           const router = inject(Router);
           if (authService.isAuthenticated()){
             console.log("se valido como usuario autenticado en authGuard")
-              /*if(isTokenExpired(authService)){
+              if(isTokenExpired(authService)){
                 console.log("se valido como token expirado en authGuard")
                 authService.logout();
                 router.navigate(['/login']);
                 return false;
-              }*/
+              }
             return true;
           }
           console.log("AUTH.GUARD RETORNANDO AL LOGIN")

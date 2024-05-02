@@ -20,7 +20,7 @@ private agregarAuthorizationHeader(){
     //tenemos que obtener el token
     let token = this.authService.token;
     if(token != null){
-      return this.httpHeaders.append('Authorization', 'Bearer' + token);
+      return this.httpHeaders.append('Authorization', 'Bearer ' + token);
     }
     return this.httpHeaders;
 }
