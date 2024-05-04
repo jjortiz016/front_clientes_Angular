@@ -6,13 +6,14 @@ import { catchError, map } from 'rxjs/operators';
 import { HttpClient, HttpHeaders} from '@angular/common/http';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
+import { AuthService } from '../usuarios/auth.service';
 
 @Injectable()
 export class VehiculoService {
   private urlEndPoint:string='http://localhost:8086/api/vehiculos';
   private httpHeaders = new HttpHeaders({'Content-type': 'application/json'});
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router, private authService: AuthService) { }
   /*getVehiculos(): Observable <Vehiculo[]> {
     return of (VEHICULOS); // of convierte el objeto VEHICULOS en un observable
   }*/
@@ -31,6 +32,22 @@ export class VehiculoService {
      )
   }*/
 
+private isNoAuthorized(e):boolean{
+
+  if(e.status==401){
+   
+       Swal.fire('Error ', `Hola  necesita autenticar para acceder a este recurso ${e.status}`, 'error');
+       this.router.navigate(['/login'])
+    return true;
+  }
+
+  if(e.status==403){
+    Swal.fire('Acceso denegado', `Hola ${this.authService.usuario.username} no tienes acceso solicita permiso para acceder a este recurso.` , 'warning' );
+    this.router.navigate(['/vehiculos'])
+    return true;
+  }
+  return false;
+}  
   //creando el metodo getVhiculos con paginación
   getVehiculos(page: number): Observable<any>{
     return this.http.get(this.urlEndPoint+'/page/'+ page).pipe(
@@ -47,13 +64,19 @@ export class VehiculoService {
   create(vehiculo: Vehiculo): Observable <any>{
     return this.http.post<any>(this.urlEndPoint, vehiculo, {headers: this.httpHeaders}).pipe(
       catchError(e=> {
+
+         if (this.isNoAuthorized(e)){
+          return throwError(()=> e);
+
+         }
         if(e.status==400){
           return throwError(()=> e);
         }
 
         //console.error(e.error.mensaje);
         Swal.fire(e.error.mensaje, e.error.error, 'error');
-        return throwError(() => new Error(e));
+       // return throwError(() => new Error(e));
+        return throwError(()=> e);
 
       })
     );
@@ -64,11 +87,15 @@ export class VehiculoService {
       return this.http.get<Vehiculo>(`${this.urlEndPoint}/${id}`)
       .pipe(
         catchError(e => {
+          if (this.isNoAuthorized(e)){
+            return throwError(()=> e); //se devuelve de esta forma por que el error ya biene desde backend configurado previamente
+           }
+
           this.router.navigate(['/vehiculos']);
           console.error(e.error.mensaje);
           Swal.fire('Error al editar', e.error.mensaje, 'error');
-           return throwError(()=> new Error(e)) //retornamos el objeto del error.
-          
+          // return throwError(()=> new Error(e)) //retornamos el objeto con 2 propiedades. El nombre del error (generalmente “Error”) y message: Una descripción del error.
+          return throwError(()=> e);
         })
       );
    }
@@ -83,7 +110,8 @@ export class VehiculoService {
             //  console.error(e.error.mensaje)
             // Swal.fire('Error al actualizar el vehiculo', e.error.mensaje, 'error');
             Swal.fire(e.error.mensaje, e.error.error, 'error');
-              return throwError(()=> new Error(e)) //retornamos el objeto del error.
+             // return throwError(()=> new Error(e)) //retornamos el objeto del error.
+             return throwError(()=> e);
             })
      );
    }
@@ -93,8 +121,8 @@ export class VehiculoService {
         catchError(e => {
           console.error(e.error.mensaje);
           Swal.fire(e.error.mensaje, e.error.error, 'error');
-         
-          return throwError(() => new Error(e))
+           return throwError(()=> e);
+         // return throwError(() => new Error(e))
 
         })
 
