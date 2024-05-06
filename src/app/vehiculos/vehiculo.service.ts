@@ -32,6 +32,14 @@ export class VehiculoService {
      )
   }*/
 
+  private agregarAuthorizationHeader(){
+    let token = this.authService.token;
+    if (token != null){
+      return this.httpHeaders.append('Authorization', 'Bearer' + token)
+    }
+    return this.httpHeaders;
+  }
+
 private isNoAuthorized(e):boolean{
 
   if(e.status==401){
@@ -84,7 +92,7 @@ private isNoAuthorized(e):boolean{
   }
 
    getVehiculo(id): Observable<Vehiculo>{
-      return this.http.get<Vehiculo>(`${this.urlEndPoint}/${id}`)
+      return this.http.get<Vehiculo>(`${this.urlEndPoint}/${id}`,{headers:this.agregarAuthorizationHeader()})
       .pipe(
         catchError(e => {
           if (this.isNoAuthorized(e)){
@@ -101,9 +109,13 @@ private isNoAuthorized(e):boolean{
    }
 
    update(vehiculo:Vehiculo):Observable<Vehiculo>{
-     return this.http.put(`${this.urlEndPoint}/${vehiculo.id}`, vehiculo, {headers: this.httpHeaders}).pipe(
+     return this.http.put(`${this.urlEndPoint}/${vehiculo.id}`, vehiculo, {headers:this.agregarAuthorizationHeader()}).pipe(
        map((response:any) => response.vehiculo as Vehiculo),
         catchError(e => {
+          if (this.isNoAuthorized(e)){
+            return throwError(()=> e); //se devuelve de esta forma por que el error ya biene desde backend configurado previamente
+           }
+
           if(e.status==400){
             return throwError(()=> e);
           }
@@ -117,9 +129,13 @@ private isNoAuthorized(e):boolean{
    }
 
    delete(id:number): Observable<Vehiculo>{
-      return this.http.delete<Vehiculo>(`${this.urlEndPoint}/${id}`, {headers: this.httpHeaders}).pipe(
+      return this.http.delete<Vehiculo>(`${this.urlEndPoint}/${id}`, {headers:this.agregarAuthorizationHeader()}).pipe(
         catchError(e => {
           console.error(e.error.mensaje);
+          if (this.isNoAuthorized(e)){
+            return throwError(()=> e); //se devuelve de esta forma por que el error ya biene desde backend configurado previamente
+           }
+
           Swal.fire(e.error.mensaje, e.error.error, 'error');
            return throwError(()=> e);
          // return throwError(() => new Error(e))

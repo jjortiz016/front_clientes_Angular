@@ -32,6 +32,7 @@ private agregarAuthorizationHeader(){
       if(this.authService.isAuthenticated()){
         this.authService.logout();
       }
+      Swal.fire('Error ', `Hola  necesita autenticar para acceder a este recurso ${e.status}`, 'error');
 
       this.router.navigate(['/login']) //redirige al login
       return true;
@@ -165,7 +166,7 @@ getRegiones(): Observable<Region[]>{
         }
         //Swal.fire('Error al eliminar', e.error.mensaje , 'error' );
         Swal.fire(e.error.mensaje, e.error.error, 'error' );
-        return throwError(() => new Error(e))
+        return throwError(() => e);
 
       })
     );
