@@ -45,6 +45,10 @@ private isNoAuthorized(e):boolean{
   if(e.status==401){
    
        Swal.fire('Error ', `Hola  necesita autenticar para acceder a este recurso ${e.status}`, 'error');
+       //cierr la sesión si el token esta expirado en el backend
+       if(this.authService.isAuthenticated()){
+          this.authService.logout();
+       }
        this.router.navigate(['/login'])
     return true;
   }
