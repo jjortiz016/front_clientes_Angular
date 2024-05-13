@@ -120,7 +120,7 @@ getRegiones(): Observable<Region[]>{
   }
 
   getCliente(id): Observable<Cliente>{
-    return this.http.get<Cliente>(`${this.urlEndPoint}/${id}`,{headers: this.agregarAuthorizationHeader()}).pipe(
+    return this.http.get<Cliente>(`${this.urlEndPoint}/${id}`, {headers: this.agregarAuthorizationHeader()}).pipe(
        catchError(e => {
         if(this.isNotAuthorized(e)){
           return throwError(()=> e);

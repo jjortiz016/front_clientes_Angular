@@ -28,9 +28,9 @@ const app_routes: Routes = [
  //  {path: 'clientes/form/:id', component: FormComponent},
     {path:'vehiculos', component: VehiculosComponent},
     {path: 'vehiculos/page/:page', component: VehiculosComponent},
-    {path:'vehiculos/form', component: FormVehiculoComponent, canActivate:[authGuard]},
-    {path:'vehiculos/form/:id', component: FormVehiculoComponent, canActivate:[authGuard]},
-    {path: 'vehiculos/ver/:id', component: DetallevehiculoComponent, canActivate:[authGuard]},
+    {path:'vehiculos/form', component: FormVehiculoComponent, canActivate:[authGuard, roleGuard], data:{role:'ROLE_ADMIN'}},
+    {path:'vehiculos/form/:id', component: FormVehiculoComponent, canActivate:[authGuard, roleGuard], data:{role:'ROLE_ADMIN'}},
+    {path: 'vehiculos/ver/:id', component: DetallevehiculoComponent, canActivate:[authGuard, roleGuard], data:{role:'ROLE_USER'}},
     {path: 'login', component: LoginComponent},
     //{path:'**', pathMatch: 'full', redirectTo:''}
 ];

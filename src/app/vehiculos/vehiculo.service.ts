@@ -96,7 +96,7 @@ private isNoAuthorized(e):boolean{
   }
 
    getVehiculo(id): Observable<Vehiculo>{
-      return this.http.get<Vehiculo>(`${this.urlEndPoint}/${id}`,{headers:this.agregarAuthorizationHeader()})
+      return this.http.get<Vehiculo>(`${this.urlEndPoint}/${id}`, {headers:this.agregarAuthorizationHeader()})
       .pipe(
         catchError(e => {
           if (this.isNoAuthorized(e)){
@@ -111,6 +111,24 @@ private isNoAuthorized(e):boolean{
         })
       );
    }
+
+   getVerVehiculo(id): Observable<Vehiculo>{
+    return this.http.get<Vehiculo>(`${this.urlEndPoint}/ver/${id}`, {headers:this.agregarAuthorizationHeader()})
+    .pipe(
+      catchError(e => {
+        if (this.isNoAuthorized(e)){
+          return throwError(()=> e); //se devuelve de esta forma por que el error ya biene desde backend configurado previamente
+         }
+
+        this.router.navigate(['/vehiculos']);
+        console.error(e.error.mensaje);
+        Swal.fire('Error al editar', e.error.mensaje, 'error');
+        // return throwError(()=> new Error(e)) //retornamos el objeto con 2 propiedades. El nombre del error (generalmente “Error”) y message: Una descripción del error.
+        return throwError(()=> e);
+      })
+    );
+ }
+
 
    update(vehiculo:Vehiculo):Observable<Vehiculo>{
      return this.http.put(`${this.urlEndPoint}/${vehiculo.id}`, vehiculo, {headers:this.agregarAuthorizationHeader()}).pipe(

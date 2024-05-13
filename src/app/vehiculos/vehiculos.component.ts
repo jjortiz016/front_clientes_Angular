@@ -4,6 +4,7 @@ import { VehiculoService } from './vehiculo.service';
 import { ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
 import {tap} from 'rxjs/operators';
+import { AuthService } from '../usuarios/auth.service';
 @Component({
   selector: 'app-vehiculos',
   templateUrl: './vehiculos.component.html'
@@ -15,7 +16,7 @@ export class VehiculosComponent implements OnInit {
    paginadorvehiculo: any;
 
     constructor(private vehiculoService: VehiculoService,
-      private activatedRoute: ActivatedRoute){}
+      private activatedRoute: ActivatedRoute,  public authService: AuthService){}
  
     /*  ngOnInit() {
        

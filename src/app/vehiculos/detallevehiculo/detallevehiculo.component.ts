@@ -17,7 +17,7 @@ export class DetallevehiculoComponent {
     this.activatedRoute.paramMap.subscribe(params => {
       let id: number = +params.get('id')
       if(id){
-        this.vehiculoService.getVehiculo(id).subscribe(vehiculo=>{
+        this.vehiculoService.getVerVehiculo(id).subscribe(vehiculo=>{
           this.vehiculo = vehiculo;
         })
       }
