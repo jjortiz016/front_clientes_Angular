@@ -4,7 +4,8 @@ import { Observable } from 'rxjs';
 import { AuthService } from '../auth.service';
 import  Swal from 'sweetalert2';
 
-export const roleGuard: CanActivateFn = (next: ActivatedRouteSnapshot,
+export const roleGuard: CanActivateFn = (
+   next: ActivatedRouteSnapshot,
   state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean  => {
 
     const authService = inject(AuthService);

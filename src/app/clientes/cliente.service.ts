@@ -20,7 +20,7 @@ private agregarAuthorizationHeader(){
     //tenemos que obtener el token
     let token = this.authService.token;
     if(token != null){
-      return this.httpHeaders.append('Authorization', 'Bearer' + token);
+      return this.httpHeaders.append('Authorization', 'Bearer ' + token);
     }
     return this.httpHeaders;
 }
@@ -32,6 +32,7 @@ private agregarAuthorizationHeader(){
       if(this.authService.isAuthenticated()){
         this.authService.logout();
       }
+      Swal.fire('Error ', `Hola  necesita autenticar para acceder a este recurso ${e.status}`, 'error');
 
       this.router.navigate(['/login']) //redirige al login
       return true;
@@ -119,7 +120,7 @@ getRegiones(): Observable<Region[]>{
   }
 
   getCliente(id): Observable<Cliente>{
-    return this.http.get<Cliente>(`${this.urlEndPoint}/${id}`,{headers: this.agregarAuthorizationHeader()}).pipe(
+    return this.http.get<Cliente>(`${this.urlEndPoint}/${id}`, {headers: this.agregarAuthorizationHeader()}).pipe(
        catchError(e => {
         if(this.isNotAuthorized(e)){
           return throwError(()=> e);
@@ -165,7 +166,7 @@ getRegiones(): Observable<Region[]>{
         }
         //Swal.fire('Error al eliminar', e.error.mensaje , 'error' );
         Swal.fire(e.error.mensaje, e.error.error, 'error' );
-        return throwError(() => new Error(e))
+        return throwError(() => e);
 
       })
     );
